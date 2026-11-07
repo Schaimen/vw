@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volkswagen – Future Plan 2030</title>
     <style>
+        /* --- GRUNDDESIGN & VARIABLEN --- */
         :root {
             --vw-blue: #001e50;
             --vw-light-blue: #00b0f0;
@@ -12,82 +13,346 @@
             --text-light: #f5f5f5;
             --accent-red: #d32f2f;
         }
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
-        h1, h2, h3 { margin: 0; font-weight: 600; }
-        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://upload.wikimedia.org/wikipedia/commons/b/b3/Volkswagen_Werk_Wolfsburg_-_Luftbild.jpg') center/cover; padding: 0 20px; }
-        header h1 { font-size: 4rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
-        header h1 span { color: var(--vw-light-blue); }
-        header p { font-size: 1.5rem; max-width: 800px; color: #ccc; }
-        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
-        section h2 { font-size: 2.5rem; margin-bottom: 40px; border-bottom: 2px solid var(--vw-blue); padding-bottom: 10px; display: inline-block; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { perspective: 1000px; cursor: pointer; height: 400px; }
-        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
-        .card.flipped .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .card-front { background-color: #1a1a1a; display: flex; align-items: flex-end; }
-        .card-front img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: opacity 0.3s; }
-        .card:hover .card-front img { opacity: 0.8; }
-        .card-front h3 { position: relative; z-index: 2; padding: 20px; font-size: 1.8rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
-        .card-back { background-color: #1a1a1a; color: var(--text-light); transform: rotateY(180deg); padding: 30px; display: flex; flex-direction: column; justify-content: center; border: 1px solid var(--vw-blue); }
-        .card-back p, .card-back ul { font-size: 1.1rem; margin: 0; padding-left: 15px; }
-        .card-back li { margin-bottom: 10px; }
-        .kpi-text { font-size: 3rem; color: var(--accent-red); font-weight: bold; text-align: center; margin-bottom: 10px; }
-        .hint { text-align: center; font-size: 0.9rem; color: #888; margin-bottom: 30px; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* --- 3D AUTOBAHN ANIMATION (HEADER) --- */
+        header {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        .highway-scene {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: linear-gradient(to bottom, #020a17 0%, var(--vw-blue) 40%, #000 60%);
+            perspective: 600px; /* Erzeugt die 3D Tiefe */
+        }
+
+        .highway-road {
+            position: absolute;
+            bottom: -30%;
+            left: 50%;
+            width: 300vw;
+            height: 150vh;
+            margin-left: -150vw;
+            background: linear-gradient(90deg, transparent 48%, rgba(255,255,255,0.1) 48%, rgba(255,255,255,0.1) 52%, transparent 52%), #0d0d0d;
+            transform: rotateX(75deg); /* Kippt die Straße nach hinten */
+            transform-origin: top;
+            border-left: 2px solid var(--accent-red);
+            border-right: 2px solid var(--accent-red);
+            box-shadow: 0px 50px 100px rgba(0, 30, 80, 0.9) inset;
+        }
+
+        .highway-lines {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 16px;
+            height: 200%;
+            margin-left: -8px;
+            /* Gestrichelte Linie */
+            background: repeating-linear-gradient(to bottom, transparent 0, transparent 40px, #ffffff 40px, #ffffff 80px);
+            animation: drive 1s linear infinite;
+        }
+
+        @keyframes drive {
+            from { transform: translateY(0); }
+            to { transform: translateY(80px); } /* Versatz muss exakt dem Muster entsprechen */
+        }
+
+        .header-content {
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        header h1 {
+            font-size: 4.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        header h1 span {
+            color: var(--vw-light-blue);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            color: #ddd;
+            margin: 0 auto;
+        }
+
+        /* --- SEKTIONEN & CSS GRID --- */
+        section {
+            padding: 100px 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-dark {
+            background-color: #0f1218;
+            border-top: 1px solid #1f2533;
+            border-bottom: 1px solid #1f2533;
+            max-width: 100%;
+        }
+        .section-dark .grid-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--accent-red);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .hint {
+            font-size: 1rem;
+            color: var(--vw-light-blue);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        /* --- FLIP CARDS (MIT SPIEGEL-BUG FIX) --- */
+        .card {
+            perspective: 1500px; /* Erzeugt den 3D Raum für die Karte */
+            cursor: pointer;
+            height: 420px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* FIX: -webkit-backface-visibility für Safari zwingend erforderlich */
+        .card-front, .card-back {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        /* VORDERSEITE */
+        .card-front {
+            background-color: #1a1a1a;
+            display: flex;
+            align-items: flex-end;
+            z-index: 2;
+        }
+
+        .card-front img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.65;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        .card:hover .card-front img {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .card-front h3 {
+            position: relative;
+            z-index: 2;
+            padding: 25px;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,1);
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
+            border-bottom: 4px solid var(--vw-blue);
+        }
+
+        /* RÜCKSEITE (INKLUSIVE ANIMIERTEM HINTERGRUND) */
+        .card-back {
+            /* FIX: Diese Drehung verhindert, dass der Text spiegelverkehrt ist */
+            transform: rotateY(180deg);
+            z-index: 1;
+            
+            color: var(--text-light);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            
+            /* Animierter Verlauf */
+            background: linear-gradient(135deg, #0a0a0a, var(--vw-blue), #1a0505, #000000);
+            background-size: 300% 300%;
+            animation: gradientMove 8s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card-back p, .card-back ul {
+            font-size: 1.05rem;
+            margin: 0;
+            padding-left: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        .card-back li {
+            margin-bottom: 12px;
+        }
+
+        .card-back h4 {
+            color: var(--vw-light-blue);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 5px;
+        }
+
+        /* KPI / Finanzzahlen Styles */
+        .kpi-container {
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            border: 1px solid #333;
+        }
+        
+        .kpi-text {
+            font-size: 3.5rem;
+            color: var(--accent-red);
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(211, 47, 47, 0.4);
+            margin-bottom: 5px;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- KAPITEL 1: HEADER & ANIMATION -->
     <header>
-        <h1>Kapitel 1: Der <span>Ikarus</span>-Effekt</h1>
-        <p>Anspruch vs. Realität. Vom Käfer-Kult zur Existenzkrise: Der Future Plan 2030 entscheidet über die Zukunft von Europas größtem Autobauer.</p>
-        <p style="font-size: 1rem; color: var(--vw-light-blue); margin-top: 20px;">↓ Scrollen für die Analyse ↓</p>
+        <div class="highway-scene">
+            <div class="highway-road">
+                <div class="highway-lines"></div>
+            </div>
+        </div>
+        
+        <div class="header-content">
+            <h1>Der <span>Ikarus</span>-Effekt</h1>
+            <p>Anspruch vs. Realität. Vom Käfer-Kult zur Existenzkrise: Der Future Plan 2030 entscheidet über die Zukunft von Europas größtem Autobauer.</p>
+        </div>
+        
+        <div style="position: absolute; bottom: 40px; color: var(--vw-light-blue); font-size: 1.2rem; letter-spacing: 2px; animation: pulse 2s infinite;">
+            ↓ ANALYSE STARTEN ↓
+        </div>
     </header>
 
+    <!-- KAPITEL 2: HISTORIE -->
     <section>
-        <h2>Kapitel 2: Vom Volk zum Luxusgut – Der schleichende Bruch</h2>
-        <p class="hint">Klicke auf die Bilder, um die Informationen zu öffnen.</p>
+        <h2>Kapitel 2: Vom Volk zum Luxusgut</h2>
+        <div class="hint">▶ Klicke auf die Bilder für die Analyse</div>
+        
         <div class="grid-container">
+            <!-- Karte 1 -->
             <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Volkswagen_Kaefer_1949.jpg" alt="VW Käfer">
+                        <img src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="VW Käfer">
                         <h3>Der Käfer (Die Basis)</h3>
                     </div>
                     <div class="card-back">
+                        <h4>Historisches Fundament</h4>
                         <ul>
                             <li>Ursprünglich ein NS-Projekt. 1945 vom britischen Offizier Ivan Hirst vor dem Abriss gerettet.</li>
-                            <li>Luftgekühlter Motor und simples Fahrgestell.</li>
-                            <li>1959 US-Kult durch "Think Small/Lemon"-Werbung. 1955 rollte der millionste vom Band.</li>
+                            <li>Luftgekühlter Motor (krisensicher) und simples Fahrgestell.</li>
+                            <li>1959 US-Kult durch selbstironische "Think Small/Lemon"-Werbung. 1955 rollte der millionste vom Band.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Karte 2 -->
             <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Volkswagen_Santana_01_China_2012-04-14.JPG" alt="VW Santana China">
+                        <img src="https://images.unsplash.com/photo-1508804052814-cd3ba865a116?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Stadtverkehr China">
                         <h3>Der China-Pionier</h3>
                     </div>
                     <div class="card-back">
+                        <h4>Vom Herrscher zum Bittsteller</h4>
                         <ul>
                             <li>1984 startete VW im "Fahrrad-Land" China.</li>
-                            <li>Der Santana wurde zur Legende, zum Taxi und Statussymbol.</li>
-                            <li>Jahrzehntelang die Nummer 1, bevor der Wandel verschlafen wurde.</li>
+                            <li>Der Santana wurde zur Legende, zum robusten Taxi und zum Statussymbol für Beamte.</li>
+                            <li>Jahrzehntelang die klare Nummer 1, bevor man den Wandel zum modernen "Smartphone auf Rädern" verschlief.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- Karte 3 -->
             <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/VW_Golf_I_Facelift_Front.jpg" alt="Golf 1 vs Golf 8">
+                        <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moderner VW">
                         <h3>Die Preis-Explosion</h3>
                     </div>
                     <div class="card-back">
+                        <h4>Der schleichende Bruch</h4>
                         <ul>
-                            <li><b>1974 (Golf I):</b> 13.862 € (ca. 4,8 Gehälter).</li>
-                            <li><b>1991 (Golf III):</b> 20.070 € (ca. 5,1 Gehälter).</li>
-                            <li><b>2024 (Golf VIII):</b> ab 27.180 € (ca. 5,8 Gehälter).</li>
+                            <li><b>1974 (Golf I):</b> 13.862 € (inflationsbereinigt) – ca. 4,8 Bruttomonatsgehälter.</li>
+                            <li><b>1991 (Golf III):</b> 20.070 € – ca. 5,1 Gehälter.</li>
+                            <li><b>2024 (Golf VIII):</b> ab 27.180 € – ca. 5,8 Gehälter.</li>
                             <li><b>Gründe:</b> Höhere Kosten, Digitalisierung und Premium-Positionierung.</li>
                         </ul>
                     </div>
@@ -96,147 +361,187 @@
         </div>
     </section>
 
-    <section style="background-color: #111;">
-        <h2>Kapitel 3: Die Zangenkrise – China-Schock & 4P-Schieflage</h2>
-        <div class="grid-container">
-            <div class="card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div style="background:#222; width:100%; height:100%;"></div>
-                        <h3>Der Elektro-Absturz</h3>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>Chinesischer Markt bricht um ein Drittel ein.</li>
-                            <li>Junge Käufer wollen "Smartphones auf Rädern".</li>
-                            <li>Chinesische Marke BYD hat VW als Marktführer abgelöst.</li>
-                        </ul>
+    <!-- KAPITEL 3 & 4: ZANGENKRISE & PARADOXON -->
+    <section class="section-dark">
+        <div class="grid-wrapper">
+            <h2>Kapitel 3 & 4: Zangenkrise & Paradoxon</h2>
+            <div class="hint">▶ Operative Blockaden im System aufdecken</div>
+
+            <div class="grid-container">
+                <div class="card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Elektroauto laden">
+                            <h3>Der Elektro-Absturz</h3>
+                        </div>
+                        <div class="card-back">
+                            <h4>Der China-Schock</h4>
+                            <ul>
+                                <li>Der chinesische Markt bricht für VW um ein Drittel ein.</li>
+                                <li>Junge asiatische Käufer wollen hochmoderne KI und Software.</li>
+                                <li>Folge: Die chinesische Marke <b>BYD</b> hat VW als Marktführer radikal abgelöst.</li>
+                                <li><b>Notbremse "China Speed":</b> VW kaufte sich bei XPeng ein, um in Hefei 30% schneller entwickeln zu können.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div style="background:#222; width:100%; height:100%;"></div>
-                        <h3>Notbremse: "China Speed"</h3>
+
+                <div class="card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Code und Software">
+                            <h3>CARIAD & SSP-Desaster</h3>
+                        </div>
+                        <div class="card-back">
+                            <h4>Software-Versagen</h4>
+                            <ul>
+                                <li>Entwicklungskosten verpuffen (Datenleaks, IT-Probleme).</li>
+                                <li>Die rettende Plattform <b>SSP</b> verschiebt sich drastisch von 2026 auf 2029/2030.</li>
+                                <li>Folge: Der ID.Golf verzögert sich. Der Verbrenner Golf 8 muss als Notlösung bis 2035 am Leben bleiben.</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>VW hat sich beim Start-up <b>XPeng</b> eingekauft.</li>
-                            <li>Im neuen Mega-Zentrum in Hefei sollen Autos 30% schneller entwickelt werden.</li>
-                        </ul>
+                </div>
+
+                <div class="card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.unsplash.com/photo-1610491462702-42e6ecd6a256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moderne Fabrik">
+                            <h3>Zwickau-Paradoxon</h3>
+                        </div>
+                        <div class="card-back">
+                            <h4>Das E-Vakuum</h4>
+                            <ul>
+                                <li>Einstiges Vorzeigewerk: Nur 220.000 Autos Produktion bei 300.000 Kapazität.</li>
+                                <li><b>Der ultimative Beleg:</b> Um die Hallen überhaupt auszulasten, fließen 90 Mio. €, um dort ab 2026/2030 rund 15.000 Altfahrzeuge zu demontieren und recyceln.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- KAPITEL 5: FINANZ-STRESSTEST -->
     <section>
-        <h2>Kapitel 4: Das Transformations-Paradoxon</h2>
-        <div class="grid-container">
-            <div class="card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div style="background:#222; width:100%; height:100%;"></div>
-                        <h3>CARIAD & SSP-Desaster</h3>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>Plattform SSP (für 40 Mio. Fzg) verschiebt sich auf 2029/2030.</li>
-                            <li>Elektrischer ID.Golf verschoben, Verbrenner Golf 8 muss bis 2035 leben.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div style="background:#222; width:100%; height:100%;"></div>
-                        <h3>Das Zwickau-Paradoxon</h3>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>Nur 220.000 Autos Produktion bei 300.000 Kapazität.</li>
-                            <li>90 Mio. € fließen in Recycling-Anlage, um das Neuwagen-Werk auszulasten.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section style="background-color: #111;">
         <h2>Kapitel 5: Der Finanz-Stresstest</h2>
+        <div class="hint">▶ Kennzahlenreihe 2023 - 2026 aufrufen</div>
+        
         <div class="grid-container">
+            <!-- KPI 1 -->
             <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">
-                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000;">
+                        <div class="kpi-container">
                             <div class="kpi-text">2,8 %</div>
-                            <h3 style="background: none; text-align: center; bottom: 10%;">Operative Marge</h3>
+                            <h3 style="background: none; text-shadow: none; font-size: 1.2rem; color: #ccc;">Operative Marge (2025)</h3>
                         </div>
                     </div>
-                    <div class="card-back"><p>2025 lag der Umsatz bei knapp 322 Mrd. €, aber die Konzern-Marge fiel auf bedrohliche 2,8%.</p></div>
+                    <div class="card-back">
+                        <h4>Milliarden-Umsätze, schmelzende Gewinne</h4>
+                        <p>Trotz eines stabilen Umsatzes von ca. 322 Mrd. € (2025) fiel die operative Konzern-Rendite auf gefährliche 2,8%.<br><br>Die Kernmarke <b>VW Pkw</b> lag 2025 sogar bei katastrophalen <b>-2,0%</b> (leichte Erholung auf 1,3% in 9M 2026).</p>
+                    </div>
                 </div>
             </div>
+
+            <!-- KPI 2 -->
             <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">
-                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000;">
+                        <div class="kpi-container">
                             <div class="kpi-text">- 11 %</div>
-                            <h3 style="background: none; text-align: center; bottom: 10%;">Absatz (9M 2026)</h3>
+                            <h3 style="background: none; text-shadow: none; font-size: 1.2rem; color: #ccc;">Absatzrückgang (9M 2026)</h3>
                         </div>
                     </div>
-                    <div class="card-back"><p>Nur noch 5,9 Mio. Fahrzeuge gegenüber 6,6 Mio. im Vorjahreszeitraum.</p></div>
+                    <div class="card-back">
+                        <h4>Das Nachfrage-Problem</h4>
+                        <p>Von Januar bis September 2026 verkaufte der Konzern weltweit nur noch rund 5,9 Millionen Fahrzeuge.<br><br>Im Vorjahreszeitraum waren es noch 6,6 Millionen. Ein massiver, struktureller Nachfrageeinbruch.</p>
+                    </div>
                 </div>
             </div>
+
+            <!-- KPI 3 -->
             <div class="card" onclick="this.classList.toggle('flipped')">
                 <div class="card-inner">
                     <div class="card-front">
-                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000;">
-                            <div class="kpi-text">- 1,32 Mrd. €</div>
-                            <h3 style="background: none; text-align: center; bottom: 10%;">CARIAD Verlust (9M)</h3>
+                        <div class="kpi-container">
+                            <div class="kpi-text">- 1,32 Mrd</div>
+                            <h3 style="background: none; text-shadow: none; font-size: 1.2rem; color: #ccc;">CARIAD Verlust (9M 2026)</h3>
                         </div>
                     </div>
-                    <div class="card-back"><p>Die Software-Sparte verbrennt weiter Geld. China At-Equity fiel auf -0,11 Mrd. €.</p></div>
+                    <div class="card-back">
+                        <h4>Kostenfalle Software</h4>
+                        <p>Die Software-Sparte verbrennt weiter Milliarden. Nach Verlusten von über 2,3 Mrd. € in 2024 und 2025, fallen weitere 1,32 Mrd. € Minus in 2026 an.<br><br>Parallel stürzte das <b>China At-Equity</b> Ergebnis ins Minus (-0,11 Mrd. €).</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2>Kapitel 6 & 7: Wolfsburger System & Plan 2030</h2>
-        <div class="grid-container">
-            <div class="card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div style="background:#222; width:100%; height:100%;"></div>
-                        <h3>Werke & IG Metall</h3>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>4 Werke auf der Kippe (Emden, Zwickau, Hannover, Neckarsulm).</li>
-                            <li>Streit um Lohn-Nullrunden vs. 5% Forderung der IG Metall.</li>
-                        </ul>
+    <!-- KAPITEL 6 & 7: WERK & ZIELE -->
+    <section class="section-dark">
+        <div class="grid-wrapper">
+            <h2>Kapitel 6 & 7: System & Plan 2030</h2>
+            <div class="hint">▶ Die Radikalkur für das Überleben</div>
+
+            <div class="grid-container">
+                <div class="card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fabrikarbeiter Industrie">
+                            <h3>Werke auf der Kippe</h3>
+                        </div>
+                        <div class="card-back">
+                            <h4>Konflikt im Maschinenraum</h4>
+                            <ul>
+                                <li>Überkapazität in Europa: ca. 500.000 Fahrzeuge.</li>
+                                <li>Für 4 Werke fehlt die Anschlussproduktion: Emden, Zwickau, Hannover, Neckarsulm (2031-2034).</li>
+                                <li><b>IG Metall Konflikt:</b> VW fordert Nullrunden bis 2030. Die Gewerkschaft fordert 5% mehr Lohn.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card" onclick="this.classList.toggle('flipped')">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <div style="background:#222; width:100%; height:100%;"></div>
-                        <h3>Ziele 2030</h3>
+
+                <div class="card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Charts und Analysen">
+                            <h3>Ziele 2030 & Stellen</h3>
+                        </div>
+                        <div class="card-back">
+                            <h4>Das Sanierungsprogramm</h4>
+                            <ul>
+                                <li><b>Ziel:</b> 9% operative Rendite bis 2030.</li>
+                                <li><b>Sparprogramm:</b> 31 Milliarden Euro müssen eingespart werden.</li>
+                                <li><b>Personal:</b> Weiterer Abbau von 50.000 Stellen weltweit (davon 12.000 bei der VW AG in Deutschland).</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>Ziel: 9% Rendite, 31 Mrd. € Kostenprogramm.</li>
-                            <li>Weiterer Abbau von 50.000 Stellen (davon 12.000 bei VW AG).</li>
-                            <li>50% weniger Modelle, 75% weniger Ausstattungsvarianten.</li>
-                        </ul>
+                </div>
+
+                <div class="card" onclick="this.classList.toggle('flipped')">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Autodesign">
+                            <h3>Radikaler Produkt-Schnitt</h3>
+                        </div>
+                        <div class="card-back">
+                            <h4>Komplexität reduzieren</h4>
+                            <ul>
+                                <li>Die Modellpalette (aktuell ca. 150) wird bis 2035 um <b>50 % verkleinert</b>.</li>
+                                <li>Ausstattungsvarianten werden um <b>75 % reduziert</b>.</li>
+                                <li>Die Kapazität wird auf 9 Millionen Fahrzeuge pro Jahr angepasst (statt ehemals 12 Millionen).</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <footer style="text-align: center; padding: 40px; color: #555; background: #000; border-top: 1px solid #222;">
+        <p>Präsentations-Dashboard generiert für das Projekt VW-Analyse 2026. © Future Plan 2030</p>
+    </footer>
+
 </body>
 </html>
