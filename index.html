@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volkswagen (VW) - Transformation Report 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc; /* Slate 50 */
+        }
+        
+        /* Smooth text fade for slogans */
+        .fade-text {
+            transition: opacity 0.75s ease-in-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .vw-blue-gradient {
+            background-image: linear-gradient(to right, #60a5fa, #3b82f6);
+        }
+        
+        .vw-red-gradient {
+            background-image: linear-gradient(to right, #f87171, #ef4444);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- 1. Header (Einstiegsbereich) -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-900 border-b border-slate-800">
+        <!-- Canvas Animation Background -->
+        <canvas id="windkanal" class="absolute inset-0 w-full h-full z-0 opacity-80"></canvas>
+        
+        <!-- Gradient Overlay for readability -->
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/60 to-slate-900 z-0"></div>
+
+        <!-- Content -->
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center mt-16">
+            <h2 class="text-blue-400 font-semibold tracking-widest uppercase text-sm mb-4">Sonderbericht 2026</h2>
+            
+            <div class="h-24 sm:h-32 flex items-center justify-center mb-6">
+                <h1 id="slogan-container" class="text-4xl sm:text-6xl md:text-7xl font-extrabold fade-text text-white drop-shadow-lg">
+                    Volkswagen.
+                </h1>
+            </div>
+
+            <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-light">
+                Vom Käfer, der die Massen motorisierte, über den weltweiten Aufstieg in China, bis zum schmerzhaften Realitätscheck der E-Mobilität: Volkswagen verkauft nicht mehr nur Autos, sondern kämpft um die eigene Identität. Unternehmensprofil, operative Blockaden und Zahlen zum Geschäftsjahr 2026 – und die Frage, ob der „Future Plan 2030“ den Konzern vor dem Absturz bewahrt.
+            </p>
+            
+            <a href="#kapitel1" class="inline-block mt-10 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors duration-300 shadow-[0_0_15px_rgba(37,99,235,0.4)] hover:shadow-[0_0_25px_rgba(37,99,235,0.6)]">
+                Zur Analyse
+            </a>
+        </div>
+    </header>
+
+    <!-- 2. Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-700 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <ul class="flex flex-row overflow-x-auto py-4 space-x-6 text-sm font-medium text-slate-300 hide-scrollbar">
+                <li><a href="#kapitel1" class="whitespace-nowrap hover:text-blue-400 transition-colors">1. Ikarus-Effekt</a></li>
+                <li><a href="#kapitel2" class="whitespace-nowrap hover:text-blue-400 transition-colors">2. Volk zum Luxusgut</a></li>
+                <li><a href="#kapitel3" class="whitespace-nowrap hover:text-blue-400 transition-colors">3. Zangenkrise</a></li>
+                <li><a href="#kapitel4" class="whitespace-nowrap hover:text-blue-400 transition-colors">4. Transformations-Paradoxon</a></li>
+                <li><a href="#kapitel5" class="whitespace-nowrap hover:text-blue-400 transition-colors">5. Finanz-Stresstest</a></li>
+                <li><a href="#kapitel6" class="whitespace-nowrap hover:text-blue-400 transition-colors">6. Wolfsburger System</a></li>
+                <li><a href="#kapitel7" class="whitespace-nowrap hover:text-blue-400 transition-colors">7. Future Plan 2030</a></li>
+                <li><a href="#quellen" class="whitespace-nowrap text-slate-500 hover:text-slate-300 transition-colors">Quellen</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-24">
+
+        <!-- 3. Kapitel 1: Der Ikarus-Effekt -->
+        <section id="kapitel1" class="scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gradient vw-blue-gradient">Kapitel 1: Der Ikarus-Effekt</h2>
+            <h3 class="text-xl text-slate-400 mb-6 font-semibold">Anspruch vs. Realität (Markenbotschaft & Filme)</h3>
+            
+            <p class="text-slate-300 leading-relaxed mb-8">
+                <strong class="text-white">Kult-Status bewahrt nicht vor dem Schock.</strong> Einst rettete britischer Pragmatismus das zerbombte Werk in Wolfsburg. 1959 machte eine ehrliche, selbstironische Werbekampagne den Käfer in den USA zur Pop-Ikone. Heute trifft dieser historische Anspruch auf eine harte Realität: Hohe Kosten, Software-Krisen und ein radikaler Wandel der Industrie.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Film 1 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-lg hover:border-slate-500 transition-colors">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center">🎥</div>
+                        <h4 class="text-lg font-bold text-white">Film 1: Historisch</h4>
+                    </div>
+                    <p class="text-blue-400 font-semibold mb-2">Titel: „Think Small“ / „Lemon“ (1959)</p>
+                    <p class="text-sm text-slate-400">Die US-Kampagne, die sich über das eigene, winzige Auto lustig machte. Ehrlichkeit machte den Käfer zum ultimativen Kult-Auto und zur Basis für Strandbuggys (Meyers Manx) und den ersten VW Bulli.</p>
+                </div>
+                <!-- Film 2 -->
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-lg hover:border-red-900 transition-colors relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-red-600"></div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center">🎬</div>
+                        <h4 class="text-lg font-bold text-white">Film 2: Aktuell</h4>
+                    </div>
+                    <p class="text-red-400 font-semibold mb-2">Titel: Der Elektro-Schock (2026)</p>
+                    <p class="text-sm text-slate-400">Eine Marke auf der Suche nach sich selbst. Während VW in China von BYD überholt wird, kämpft der Konzern mit dem Spardruck und der Verschiebung essenzieller Modelle wie dem elektrischen ID.Golf.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Kapitel 2: Vom Volk zum Luxusgut -->
+        <section id="kapitel2" class="scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gradient vw-blue-gradient">Kapitel 2: Vom Volk zum Luxusgut</h2>
+            <h3 class="text-xl text-slate-400 mb-6 font-semibold">Wer kann sich „Das Auto“ noch leisten?</h3>
+            
+            <p class="text-slate-300 leading-relaxed mb-8">
+                Volkswagen wurde 1937 gegründet, doch der wahre Startschuss fiel 1945 durch den britischen Offizier Ivan Hirst. Mit dem Käfer und ab 1974 mit dem Golf baute VW die Autos für die Mitte der Gesellschaft. Heute hat sich die Marke durch Premium-Positionierung, Digitalisierung und strengere Umweltauflagen von ihren Wurzeln entfernt.
+            </p>
+
+            <h4 class="text-lg font-bold text-white mb-4">Daten-Fokus: Preisentwicklung Golf</h4>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 text-center">
+                    <span class="block text-slate-400 text-sm mb-1">1974 (Golf I)</span>
+                    <span class="block text-3xl font-bold text-white mb-2">13.862 €</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-wide">inflationsbereinigt</span>
+                    <div class="mt-4 pt-4 border-t border-slate-700 text-sm text-blue-300">
+                        ~ 4,8 Bruttomonatsgehälter
+                    </div>
+                </div>
+                <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 text-center">
+                    <span class="block text-slate-400 text-sm mb-1">1991 (Golf III)</span>
+                    <span class="block text-3xl font-bold text-white mb-2">20.070 €</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-wide">inflationsbereinigt</span>
+                    <div class="mt-4 pt-4 border-t border-slate-700 text-sm text-blue-300">
+                        ~ 5,1 Bruttomonatsgehälter
+                    </div>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.1)] text-center transform scale-105">
+                    <span class="block text-blue-400 font-semibold text-sm mb-1">2024 (Golf VIII)</span>
+                    <span class="block text-4xl font-extrabold text-white mb-2">27.180 €</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-wide">aktueller Preis</span>
+                    <div class="mt-4 pt-4 border-t border-slate-700 text-sm text-red-400 font-medium">
+                        ~ 5,8 Bruttomonatsgehälter
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Kapitel 3: Die Zangenkrise -->
+        <section id="kapitel3" class="scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gradient vw-blue-gradient">Kapitel 3: Die Zangenkrise</h2>
+            <h3 class="text-xl text-slate-400 mb-6 font-semibold">Vom unangefochtenen Herrscher zum Bittsteller</h3>
+            
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="flex-1 space-y-6 text-slate-300 leading-relaxed">
+                    <p>
+                        1984 brachte VW den „Santana“ in ein Land, in dem fast nur Fahrräder fuhren. Jahrzehntelang war VW die klare Nummer 1 in China. Doch beim Umstieg auf E-Autos hat Wolfsburg den Trend verschlafen: Junge chinesische Käufer fordern ein „Smartphone auf Rädern“. BYD hat VW als Marktführer abgelöst.
+                    </p>
+                    <div class="bg-red-900/20 border-l-4 border-red-600 p-4 rounded-r-lg">
+                        <h4 class="text-red-400 font-bold mb-1">Die strategische Notbremse:</h4>
+                        <p class="text-sm">Um den Anschluss nicht zu verlieren, kaufte sich VW beim Start-up XPeng ein. Im neuen Entwicklungszentrum in Hefei soll durch den „China Speed“ die Entwicklungszeit um 30 % verkürzt werden, um gegen die lokale Konkurrenz zu überleben. Gleichzeitig bricht der chinesische Markt für VW um ein Drittel ein.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Kapitel 4: Das Transformations-Paradoxon -->
+        <section id="kapitel4" class="scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gradient vw-blue-gradient">Kapitel 4: Das Transformations-Paradoxon</h2>
+            <h3 class="text-xl text-slate-400 mb-6 font-semibold">Das Zwickau-Paradoxon und das E-Vakuum</h3>
+            
+            <p class="text-slate-300 leading-relaxed mb-6">
+                VW hat weltweit über 2 Millionen vollelektrische Fahrzeuge ausgeliefert, doch die internen Strukturen lähmen den Fortschritt. Die Software-Tochter CARIAD produzierte operative Verluste in Milliardenhöhe und verzögerte die essenzielle Architektur E3 2.0. Das Ergebnis: Die neue „Scalable Systems Platform“ (SSP) wird auf 2029/2030 verschoben. Der Verbrenner Golf 8 muss als Notlösung bis 2035 weiterleben, was auch Audi, Skoda und Cupra blockiert.
+            </p>
+
+            <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+                <h4 class="text-white font-bold mb-3 flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></span> Der ultimative Beweis (Zwickau)</h4>
+                <p class="text-sm text-slate-400">
+                    Das Werk Zwickau, ausgelegt auf 300.000 E-Autos, produziert nur 220.000 Einheiten. Um das hochmoderne Neuwagen-Werk überhaupt auszulasten, fließen bis zu 90 Mio. € in eine Recycling-Linie, um ab 2026/2030 Altfahrzeuge zu demontieren. Ein nie dagewesenes Vakuum ohne Verbrenner-Ausweichprodukt.
+                </p>
+            </div>
+        </section>
+
+        <!-- 7. Kapitel 5: Der Finanz-Stresstest -->
+        <section id="kapitel5" class="scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gradient vw-red-gradient">Kapitel 5: Der Finanz-Stresstest</h2>
+            <h3 class="text-xl text-slate-400 mb-6 font-semibold">Milliarden-Umsätze, schmelzende Gewinne</h3>
+            
+            <p class="text-slate-300 leading-relaxed mb-8">
+                VW verkauft weniger Fahrzeuge (Rückgang um 11 % auf 5,9 Mio. von Jan-Sep 2026). Zwar lag der Konzernumsatz 2025 stabil bei knapp 322 Mrd. €, doch die Konzern-Marge fiel auf bedrohliche 2,8 %.
+            </p>
+
+            <h4 class="text-lg font-bold text-white mb-4">Zahlen des Absturzes:</h4>
+            <div class="space-y-4">
+                <div class="bg-slate-800/80 p-4 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between border-l-4 border-slate-600">
+                    <span class="text-slate-300 font-medium">Operative Marge VW Pkw</span>
+                    <div class="text-right mt-2 sm:mt-0">
+                        <span class="line-through text-slate-500 mr-2">4,1% (2023)</span> 
+                        <span class="text-red-400 font-bold">-2,0% (2025)</span>
+                        <span class="text-xs block text-slate-400 mt-1">leichte Erholung auf 1,3% (9M 2026)</span>
+                    </div>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between border-l-4 border-red-600">
+                    <span class="text-slate-300 font-medium">CARIAD-Verluste</span>
+                    <div class="text-right mt-2 sm:mt-0">
+                        <span class="text-red-400 font-bold text-lg">> 2,3 Mrd. € p.a. (24/25)</span>
+                        <span class="text-xs block text-slate-400 mt-1">weitere -1,32 Mrd. € in 9M 2026</span>
+                    </div>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between border-l-4 border-orange-500">
+                    <span class="text-slate-300 font-medium">China At-Equity</span>
+                    <div class="text-right mt-2 sm:mt-0">
+                        <span class="text-green-500/50 mr-2">+3,60 Mrd. € (2020)</span> 
+                        <span class="text-orange-400 font-bold"> -0,11 Mrd. € (9M 2026)</span>
+                        <span class="text-xs block text-slate-400 mt-1">kollabiert</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Kapitel 6: Das Wolfsburger System -->
+        <section id="kapitel6" class="scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gradient vw-blue-gradient">Kapitel 6: Das Wolfsburger System</h2>
+            <h3 class="text-xl text-slate-400 mb-6 font-semibold">Der unantastbare Faktor Mensch</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 p-6 rounded-2xl">
+                    <h4 class="text-white font-bold mb-3">Die Blockaden im Maschinenraum</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        VW nennt für Europa eine Produktionsüberkapazität von rund 500.000 Fahrzeugen. Für vier deutsche Standorte fehlt zwischen 2031 und 2034 die Anschlussproduktion: <strong class="text-slate-200">Emden, Zwickau, Hannover und Audi in Neckarsulm.</strong>
+                    </p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 relative">
+                    <div class="absolute -top-3 -right-3 text-3xl">⚠️</div>
+                    <h4 class="text-white font-bold mb-3">Die Konfrontation</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Im Oktober 2026 wurden Pläne für weltweite Nullrunden bis 2030 bekannt. Die IG Metall fordert 5 % mehr Lohn. Die Verhandlungen eskalieren, während VW versucht, die Arbeitskosten auf ein wettbewerbsfähiges Niveau zu drücken.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Kapitel 7: Future Plan 2030 -->
+        <section id="kapitel7" class="scroll-mt-24 pb-12 border-b border-slate-800">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-gradient vw-blue-gradient">Kapitel 7: Future Plan 2030</h2>
+            <h3 class="text-xl text-slate-400 mb-6 font-semibold">Radikalkur für das Überleben</h3>
+            
+            <p class="text-slate-300 leading-relaxed mb-8">
+                Der im Sommer 2026 verabschiedete „Future Plan 2030“ soll VW retten. Das Ziel: <strong class="text-white">9 % operative Umsatzrendite bis 2030.</strong> Das erfordert ein massives <strong class="text-white">31-Milliarden-Euro-Sparprogramm.</strong>
+            </p>
+
+            <h4 class="text-lg font-bold text-white mb-4">Die Maßnahmen:</h4>
+            <div class="grid sm:grid-cols-3 gap-6">
+                <div class="bg-slate-800/40 p-6 rounded-xl text-center hover:bg-slate-800 transition-colors">
+                    <div class="text-4xl mb-3">📉</div>
+                    <h5 class="text-white font-bold mb-2">Modelle & Varianten</h5>
+                    <p class="text-sm text-slate-400"><strong class="text-blue-400">-50%</strong> weniger Modelle bis 2035<br><strong class="text-blue-400">-75%</strong> weniger Ausstattungsvarianten</p>
+                </div>
+                <div class="bg-slate-800/40 p-6 rounded-xl text-center hover:bg-slate-800 transition-colors">
+                    <div class="text-4xl mb-3">👥</div>
+                    <h5 class="text-white font-bold mb-2">Personalabbau</h5>
+                    <p class="text-sm text-slate-400">Weltweit weitere <strong class="text-red-400">50.000 Stellen</strong><br>(davon 12.000 bei der VW AG in D)</p>
+                </div>
+                <div class="bg-slate-800/40 p-6 rounded-xl text-center hover:bg-slate-800 transition-colors">
+                    <div class="text-4xl mb-3">🏭</div>
+                    <h5 class="text-white font-bold mb-2">Kapazitäten</h5>
+                    <p class="text-sm text-slate-400">Ausrichtung auf <strong class="text-blue-400">9 Mio.</strong> Fahrzeuge jährlich (statt ehemals 12 Mio.)</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 10. Quellen -->
+    <footer id="quellen" class="bg-slate-950 py-12 border-t border-slate-900">
+        <div class="max-w-5xl mx-auto px-6">
+            <h4 class="text-slate-400 font-bold uppercase tracking-wider text-sm mb-4">Quellen & Referenzen</h4>
+            <ul class="text-slate-500 text-sm space-y-2 list-disc list-inside">
+                <li>Interne Kennzahlenreihe 2020 – 2026 (9M)</li>
+                <li>Preisentwicklung Golf (1974 - 2024)</li>
+                <li>Analyse Gründe Preissteigerung</li>
+                <li>Marktentwicklung & Historie (1937 - 2007)</li>
+                <li>Aktuelle Krise & Finanzdaten 2024-2026</li>
+            </ul>
+            <div class="mt-12 text-center text-slate-600 text-xs">
+                &copy; 2026 Transformation Report Showcase
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // --- 1. Slogan Rotation Logic ---
+        const slogans = [
+            "Volkswagen.",
+            "Das Auto.",
+            "Vom Volk zum Luxusgut.",
+            "Der Ikarus-Effekt.",
+            "Way to Zero – oder Zero Way?"
+        ];
+        
+        let currentSloganIndex = 0;
+        const sloganElement = document.getElementById('slogan-container');
+
+        setInterval(() => {
+            // Fade out
+            sloganElement.style.opacity = 0;
+            
+            // Change text and fade in after opacity transition
+            setTimeout(() => {
+                currentSloganIndex = (currentSloganIndex + 1) % slogans.length;
+                sloganElement.textContent = slogans[currentSloganIndex];
+                
+                // Optional: Change color for dramatic slogans
+                if (currentSloganIndex >= 2) {
+                    sloganElement.classList.remove('text-white');
+                    sloganElement.classList.add('text-red-400');
+                } else {
+                    sloganElement.classList.remove('text-red-400');
+                    sloganElement.classList.add('text-white');
+                }
+                
+                sloganElement.style.opacity = 1;
+            }, 750); // Matches CSS transition duration
+        }, 4000);
+
+
+        // --- 2. Canvas Animation (Windkanal / Stresstest) ---
+        const canvas = document.getElementById('windkanal');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let lines = [];
+        let isStressTest = false;
+        let stressTimer = 0;
+
+        function resize() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+            initLines();
+        }
+
+        class StreamLine {
+            constructor() {
+                this.reset();
+                this.x = Math.random() * width; // Random start position initially
+            }
+
+            reset() {
+                this.x = -100 - Math.random() * 200;
+                this.y = Math.random() * height;
+                this.length = 100 + Math.random() * 300;
+                this.speed = 1.5 + Math.random() * 2;
+                this.thickness = 0.5 + Math.random() * 1.5;
+                this.amplitude = Math.random() * 20;
+                this.frequency = 0.002 + Math.random() * 0.005;
+                this.phase = Math.random() * Math.PI * 2;
+                this.opacity = 0.1 + Math.random() * 0.3;
+            }
+
+            update() {
+                // In stress test: faster, higher amplitude, erratic
+                const currentSpeed = isStressTest ? this.speed * 2.5 : this.speed;
+                const currentAmp = isStressTest ? this.amplitude * 2 : this.amplitude;
+                
+                this.x += currentSpeed;
+                
+                if (this.x > width + this.length) {
+                    this.reset();
+                }
+
+                // Draw
+                ctx.beginPath();
+                ctx.lineWidth = this.thickness;
+                
+                // Color transition
+                if (isStressTest) {
+                    // Reddish tone
+                    ctx.strokeStyle = `rgba(227, 25, 55, ${this.opacity * 1.5})`; 
+                } else {
+                    // Windkanal blue/white tone
+                    ctx.strokeStyle = `rgba(148, 163, 184, ${this.opacity})`; 
+                }
+
+                for (let i = 0; i < this.length; i += 10) {
+                    const waveY = this.y + Math.sin((this.x - i) * this.frequency + this.phase) * currentAmp;
+                    if (i === 0) {
+                        ctx.moveTo(this.x - i, waveY);
+                    } else {
+                        ctx.lineTo(this.x - i, waveY);
+                    }
+                }
+                ctx.stroke();
+            }
+        }
+
+        function initLines() {
+            lines = [];
+            const numLines = Math.floor(height / 15); // Density based on screen size
+            for (let i = 0; i < numLines; i++) {
+                lines.push(new StreamLine());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Stress Test Logic (toggle every few seconds)
+            stressTimer++;
+            if (!isStressTest && stressTimer > 600) { // Approx 10 seconds normal
+                isStressTest = true;
+                stressTimer = 0;
+            } else if (isStressTest && stressTimer > 180) { // Approx 3 seconds stress
+                isStressTest = false;
+                stressTimer = 0;
+            }
+
+            lines.forEach(line => line.update());
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        
+        // Initialize
+        resize();
+        animate();
+
+    </script>
+</body>
+</html>
